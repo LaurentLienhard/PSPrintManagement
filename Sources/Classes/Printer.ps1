@@ -10,14 +10,18 @@
     [System.Boolean]$Published
     [System.String]$PSComputerName
 
+    #region <Constructors>
     Printer() {
     }
 
     Printer([System.String]$Name) {
         $this.Name = $Name
     }
+    #endregion <Constructors>
+
 
     #region <Set/Get>
+
     #region <SharedName>
     [void] SetSharedName ([System.String]$SharedName) {
         $this.SharedName = $SharedName
@@ -80,6 +84,37 @@
         return $this.PrintProcessor
     }
     #endregion <PrintProcessor>
+
+    #region <SharedStatus>
+    [void] SetSharedStatus ([System.Boolean]$Shared) {
+        $this.Shared = $Shared
+    }
+
+    [System.Boolean] GetSharedStatus () {
+        return $this.Shared
+    }
+    #endregion <SharedStatus>
+
+    #region <PublishedStatus>
+    [void] SetPublishedStatus ([System.Boolean]$Published) {
+        $this.Published = $Published
+    }
+
+    [System.Boolean] GetPublishedStatus () {
+        Return $this.Published
+    }
+    #endregion <PublishedStatus>
+
+    #region <Location>
+    [void] SetLocation ([system.String]$Location) {
+        $this.Location = $Location
+    }
+
+    [System.String] GetLocation () {
+        Return $this.Location
+    }
+    #endregion <Location>
+
     #endregion <Set/Get>
 
     #region <Method>
