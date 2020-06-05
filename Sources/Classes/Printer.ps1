@@ -8,7 +8,7 @@
     [System.String]$DataType
     [System.Boolean]$Shared
     [System.Boolean]$Published
-    [System.String]$PSComputerName
+    [System.String]$ComputerName
 
     #region <Constructors>
     Printer() {
@@ -114,6 +114,16 @@
         Return $this.Location
     }
     #endregion <Location>
+
+    #region <ComputerName>
+    [void] SetComputerName ([system.String]$ComputerName) {
+        $This.ComputerName = $ComputerName
+    }
+
+    [System.String] GetComputerName () {
+        Return $This.ComputerName
+    }
+    #endregion <ComputerName>
 
     #endregion <Set/Get>
 
