@@ -63,7 +63,6 @@
         }
     }
 
-
     [System.String] GetDataType () {
         return $this.DataType
     }
@@ -134,6 +133,24 @@
         }
         else {
             Return $false
+        }
+    }
+
+    [System.Boolean] static TestIfPrinterPortExist ([System.String]$PortName, [System.String]$ComputerName) {
+        if (Get-PrinterPort -ComputerName $ComputerName -Name $PortName) {
+            Return $true
+        }
+        else {
+            Return $false
+        }
+    }
+
+    [void] CopyPrinterFromTo ([system.String]$FromComputerName, [System.String]$ToComputerName) {
+        if ([PRINTER]::TestIfPrinterExist($This.Name, $FromComputerName)) {
+            Write-Warning "Move Printer $($This.name) from $($FromComputerName) to $($ToComputerName)"
+        }
+        else {
+            Write-Error "Printer $($This.name) not found on $($FromComputerName)"
         }
     }
     #endregion <Method>

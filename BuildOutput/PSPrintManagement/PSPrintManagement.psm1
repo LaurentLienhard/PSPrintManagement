@@ -1,4 +1,4 @@
-﻿#Generated at 06/06/2020 13:05:29 by LIENHARD Laurent
+﻿#Generated at 06/06/2020 17:58:46 by LIENHARD Laurent
 Class Printer {
     [System.String]$Name
     [System.String]$SharedName
