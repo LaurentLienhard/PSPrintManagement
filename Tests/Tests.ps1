@@ -35,4 +35,16 @@ finally {
 
 } #>
 
-Move-Printer -PrinterName COPINFO, COPHTP -FromComputerName SRV-PRINT01 -ToComputerName SRV-PRINT02
+$Printer = Get-Printer -ComputerName SRV-PRINT01 | Where-Object { $_.Name -eq "HP LJ2055 JENNY" }
+$NewPrinter = [PRINTER]::new($Printer.Name)
+$NewPrinter.SetPortName($Printer.PortName)
+$NewPrinter.SetSharedName($Printer.ShareName)
+$NewPrinter.SetDriverName("HP Universal Printing PCL 6 (v6.9.0)")
+$NewPrinter.SetLocation($Printer.Location)
+$NewPrinter.SetPrintProcessor("hpcpp240")
+$NewPrinter.SetDataType($Printer.Datatype)
+$NewPrinter.SetSharedStatus($Printer.Shared)
+$NewPrinter.SetPublishedStatus($Printer.Published)
+
+
+$NewPrinter.CopyPrinterFromTo("SRV-PRINT01", "SRV-PRINT02")
