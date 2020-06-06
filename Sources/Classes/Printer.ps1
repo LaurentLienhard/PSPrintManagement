@@ -147,7 +147,13 @@
 
     [void] CopyPrinterFromTo ([system.String]$FromComputerName, [System.String]$ToComputerName) {
         if ([PRINTER]::TestIfPrinterExist($This.Name, $FromComputerName)) {
-            Write-Warning "Move Printer $($This.name) from $($FromComputerName) to $($ToComputerName)"
+            Write-Warning "Printer $($This.name) found on $($FromComputerName)"
+            if ([PRINTER]::TestIfPrinterExist($This.Name, $ToComputerName)) {
+                Write-Error "Printer $($This.name) already exist on $($ToComputerName)"
+            }
+            else {
+                Write-Warning "Move printer $($This.name) from $($FromComputerName) to $($ToComputerName)"
+            }
         }
         else {
             Write-Error "Printer $($This.name) not found on $($FromComputerName)"
