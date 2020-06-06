@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = "Continu"
+﻿<# $ErrorActionPreference = "Continu"
 try {
     $PrinterList = Get-printer -ComputerName SRV-PRINT01
     foreach ($Printer in $PrinterList) {
@@ -33,4 +33,6 @@ catch {
 }
 finally {
 
-}
+} #>
+
+Move-Printer -PrinterName COPINFO, COPHTP -FromComputerName SRV-PRINT01 -ToComputerName SRV-PRINT02
