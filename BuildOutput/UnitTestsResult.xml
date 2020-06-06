@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="8" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2020-06-06" time="17:58:49">
-  <environment clr-version="4.0.30319.42000" user-domain="NETINTRA" cwd="C:\Projects\PSPrintManagement" platform="Microsoft Windows 10 Enterprise|C:\Windows|\Device\Harddisk0\Partition3" machine-name="PORT9999" nunit-version="2.5.8.0" os-version="10.0.19041" user="Laurent.Lienhard" />
-  <culture-info current-culture="fr-FR" current-uiculture="en-US" />
-  <test-suite type="TestFixture" name="Pester" executed="True" result="Success" success="True" time="1.182" asserts="0" description="Pester">
+<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="8" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2020-06-06" time="22:30:28">
+  <environment platform="Microsoft Windows Server 2019 Datacenter|C:\Windows|\Device\Harddisk0\Partition2" cwd="C:\Users\admin_ll\Documents\Projects\PSPrintManagement" os-version="10.0.17763" machine-name="SRV-PS01" user-domain="NETINTRA" clr-version="Unknown" user="admin_ll" nunit-version="2.5.8.0" />
+  <culture-info current-culture="fr-FR" current-uiculture="fr-FR" />
+  <test-suite type="TestFixture" name="Pester" executed="True" result="Success" success="True" time="2.3242" asserts="0" description="Pester">
     <results>
-      <test-suite type="TestFixture" name="C:\Projects\PSPrintManagement\UnitTests\Module.Tests.ps1" executed="True" result="Success" success="True" time="1.182" asserts="0" description="C:\Projects\PSPrintManagement\UnitTests\Module.Tests.ps1">
+      <test-suite type="TestFixture" name="C:\Users\admin_ll\Documents\Projects\PSPrintManagement\UnitTests\Module.Tests.ps1" executed="True" result="Success" success="True" time="2.3242" asserts="0" description="C:\Users\admin_ll\Documents\Projects\PSPrintManagement\UnitTests\Module.Tests.ps1">
         <results>
-          <test-suite type="TestFixture" name="Module" executed="True" result="Success" success="True" time="0.7794" asserts="0" description="Module">
+          <test-suite type="TestFixture" name="Module" executed="True" result="Success" success="True" time="1.5304" asserts="0" description="Module">
             <results>
-              <test-suite type="TestFixture" name="Module.Manifest" executed="True" result="Success" success="True" time="0.6157" asserts="0" description="Module.Manifest">
+              <test-suite type="TestFixture" name="Module.Manifest" executed="True" result="Success" success="True" time="1.2661" asserts="0" description="Module.Manifest">
                 <results>
-                  <test-case description="has a valid manifest" name="Module.Manifest.has a valid manifest" time="0.2918" asserts="0" success="True" result="Success" executed="True" />
-                  <test-case description="has a valid name in the manifest" name="Module.Manifest.has a valid name in the manifest" time="0.0244" asserts="0" success="True" result="Success" executed="True" />
-                  <test-case description="has a valid root module" name="Module.Manifest.has a valid root module" time="0.0343" asserts="0" success="True" result="Success" executed="True" />
-                  <test-case description="has a valid version in the manifest" name="Module.Manifest.has a valid version in the manifest" time="0.0337" asserts="0" success="True" result="Success" executed="True" />
-                  <test-case description="has a valid description" name="Module.Manifest.has a valid description" time="0.032" asserts="0" success="True" result="Success" executed="True" />
-                  <test-case description="has a valid author" name="Module.Manifest.has a valid author" time="0.019" asserts="0" success="True" result="Success" executed="True" />
-                  <test-case description="has a valid guid" name="Module.Manifest.has a valid guid" time="0.0332" asserts="0" success="True" result="Success" executed="True" />
-                  <test-case description="has a valid copyright" name="Module.Manifest.has a valid copyright" time="0.035" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="has a valid manifest" name="Module.Manifest.has a valid manifest" time="0.4611" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="has a valid name in the manifest" name="Module.Manifest.has a valid name in the manifest" time="0.0291" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="has a valid root module" name="Module.Manifest.has a valid root module" time="0.0468" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="has a valid version in the manifest" name="Module.Manifest.has a valid version in the manifest" time="0.0618" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="has a valid description" name="Module.Manifest.has a valid description" time="0.0676" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="has a valid author" name="Module.Manifest.has a valid author" time="0.039" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="has a valid guid" name="Module.Manifest.has a valid guid" time="0.0388" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="has a valid copyright" name="Module.Manifest.has a valid copyright" time="0.0778" asserts="0" success="True" result="Success" executed="True" />
                 </results>
               </test-suite>
             </results>
