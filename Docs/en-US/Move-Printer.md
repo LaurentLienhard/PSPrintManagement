@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Move-Printer [-PrinterName] <String[]> [-FromComputerName] <String[]> [-ToComputerName] <String[]>
+Move-Printer [-PrinterName] <String[]> [-FromComputerName] <String> [-ToComputerName] <String>
  [<CommonParameters>]
 ```
 
@@ -35,7 +35,7 @@ PS C:\> {{ Add example code here }}
 {{ Fill FromComputerName Description }}
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -65,7 +65,7 @@ Accept wildcard characters: False
 {{ Fill ToComputerName Description }}
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -82,6 +82,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### System.String[]
+
+### System.String
 
 ## OUTPUTS
 

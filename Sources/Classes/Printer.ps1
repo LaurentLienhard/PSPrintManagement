@@ -165,7 +165,7 @@
     [void] CreatePrinterPort ([System.String]$ToComputerName) {
         if (!([PRINTER]::TestIfPrinterPortExist($This.PortName, $ToComputerName))) {
             Add-PrinterPort -PrinterHostAddress $This.PortName -Name $This.PortName -ComputerName $ToComputerName
-            Write-Warning "Porct Name $($This.PortName) create on $($ToComputerName)"
+            Write-Warning "Port Name $($This.PortName) create on $($ToComputerName)"
         }
         else {
             Write-Warning "Port Name $($This.PortName) already exist on $($ToComputerName)"
