@@ -145,36 +145,30 @@
         }
     }
 
-    [void] CreateNewPrinter ([System.String]$Name, [System.String]$ToComputerName) {
+    [void] Create ([System.String]$ToComputerName) {
+
+        Write-Warning "Create printer $($This.name) on $($ToComputerName)"
+        $This.CreatePrinterPort($ToComputerName)
+        $This.CreatePrinter($ToComputerName)
+    }
+
+    [void] CreatePrinter ([System.String]$ToComputerName) {
         if (!([PRINTER]::TestIfPrinterExist($This.Name, $ToComputerName))) {
-            Add-Printer -Name $this.Name -ShareName $this.GetSharedName() -Location $This.GetLocation() -Published:$This.GetPublishedStatus() -Shared:$This.GetSharedStatus() -Datatype $This.GetDataType() -PrintProcessor $this.GetPrintProcessor() -DriverName $this.GetDriverName() -PortName $This.GetPortName() -ComputerName $ToComputerName
+            Add-Printer -Name $this.Name -ShareName $this.SharedName -Location $This.Location -Published:$This.Published -Shared:$This.Shared -Datatype $This.DataType -PrintProcessor $this.PrintProcessor -DriverName $this.DriverName -PortName $This.PortName -ComputerName $ToComputerName
             Write-Warning "Printer $($This.Name) create on $($ToComputerName)"
         }
+        else {
+            Write-Warning "Printer $($This.Name) already exist on $($ToComputerName)"
+        }
     }
 
-    [void] CreateNewPrinterPort ([system.String]$PortName, [System.String]$ToComputerName) {
+    [void] CreatePrinterPort ([System.String]$ToComputerName) {
         if (!([PRINTER]::TestIfPrinterPortExist($This.PortName, $ToComputerName))) {
-            Add-PrinterPort -PrinterHostAddress $this.GetPortName() -Name $this.GetPortName() -ComputerName $ToComputerName
+            Add-PrinterPort -PrinterHostAddress $This.PortName -Name $This.PortName -ComputerName $ToComputerName
+            Write-Warning "Porct Name $($This.PortName) create on $($ToComputerName)"
         }
         else {
-            Write-Warning "Printer Port $($This.PortName) already exist on $($ToComputerName)"
-        }
-    }
-
-    [void] CopyPrinterFromTo ([system.String]$FromComputerName, [System.String]$ToComputerName) {
-        if ([PRINTER]::TestIfPrinterExist($This.Name, $FromComputerName)) {
-            Write-Warning "Printer $($This.name) found on $($FromComputerName)"
-            if (!([PRINTER]::TestIfPrinterExist($This.Name, $ToComputerName))) {
-                Write-Warning "Move printer $($This.name) from $($FromComputerName) to $($ToComputerName)"
-                $This.CreateNewPrinterPort($This.GetPortName(), $ToComputerName)
-                $This.CreateNewPrinter($This.Name, $ToComputerName)
-            }
-            else {
-                Write-Error "Printer $($This.name) already exist on $($ToComputerName)"
-            }
-        }
-        else {
-            Write-Error "Printer $($This.name) not found on $($FromComputerName)"
+            Write-Warning "Port Name $($This.PortName) already exist on $($ToComputerName)"
         }
     }
     #endregion <Method>
