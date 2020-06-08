@@ -1,4 +1,4 @@
-﻿#Generated at 06/08/2020 11:06:58 by LIENHARD Laurent
+﻿#Generated at 06/08/2020 13:56:53 by LIENHARD Laurent
 Class Printer {
     [System.String]$Name
     [System.String]$SharedName
@@ -172,10 +172,36 @@ Class Printer {
             Write-Warning "Port Name $($This.PortName) already exist on $($ToComputerName)"
         }
     }
-    #endregion <Method>
+
+    [void] Remove ([system.String]$FromComputerName) {
+        $This.RemovePrinter($FromComputerName)
+        $This.RemovePrinterPort($FromComputerName)
+    }
 
 
+    [void] RemovePrinter ([system.String]$FromComputerName) {
+        if (([PRINTER]::TestIfPrinterExist($This.Name, $FromComputerName))) {
+            Remove-Printer -Name $this.Name -ComputerName $FromComputerName -Confirm:$false
+            Write-Warning "Printer $($This.Name) remove from $($FromComputerName)"
+        }
+        else {
+            Write-Warning "Printer $($This.Name) doesn't exist on $($FromComputerName)"
+        }
+    }
+
+
+    [void] RemovePrinterPort([system.String]$FromComputerName) {
+        if (([PRINTER]::TestIfPrinterPortExist($This.PortName, $FromComputerName))) {
+            Remove-PrinterPort -Name $This.PortName -ComputerName $FromComputerName -Confirm:$false
+            Write-Warning "Port Name $($This.PortName) remove from $($FromComputerName)"
+        }
+        else {
+            Write-Warning "Port Name $($This.PortName) doesn't exist on $($FromComputerName)"
+        }
+    }
 }
+#endregion <Method>
+
 #region <Move-Printer>
 <#
     .SYNOPSIS
@@ -233,8 +259,11 @@ Function Move-Printer {
         Write-Verbose "[$(get-date -format "yyyy/MM/dd HH:mm:ss") BEGIN] Starting $($myinvocation.mycommand)"
         Write-Verbose "[$(get-date -format "yyyy/MM/dd HH:mm:ss") BEGIN] Creating an empty HashTable"
         $Result = @{ }
+        $Result.Add('Time', @{ })
         $Result.Add('Error', @{ })
         $PrinterList = @()
+
+
     }
 
     Process {
@@ -245,7 +274,7 @@ Function Move-Printer {
                     $PrinterInfo = Get-Printer -Name $Name -ComputerName $FromComputerName
                     $NewPrinter = [PRINTER]::New($Name)
 
-                    switch ($PrinterInfo.DriverName) {
+                    switch -Wildcard ($PrinterInfo.DriverName) {
                         "HP*" {
                             $NewPrinter.SetDriverName("HP Universal Printing PCL 6 (v6.9.0)")
                             $NewPrinter.SetPrintProcessor("hpcpp240")
@@ -264,15 +293,10 @@ Function Move-Printer {
                             $NewPrinter.SetPrintProcessor($PrinterInfo.PrintProcessor)
                         }
                     }
-
-
-
-
-
                     $NewPrinter.SetDataType($PrinterInfo.Datatype)
                     $NewPrinter.SetSharedName($PrinterInfo.ShareName)
                     $NewPrinter.SetPortName($PrinterInfo.PortName)
-                    $NewPrinter.SetPublishedStatus($PrinterInfo.Published)
+                    $NewPrinter.SetPublishedStatus($false)
                     $NewPrinter.SetSharedStatus($PrinterInfo.Shared)
                     $NewPrinter.SetLocation($PrinterInfo.Location)
 
@@ -286,6 +310,7 @@ Function Move-Printer {
             $Printer.Create($ToComputerName)
 
         }
+
     }
 
 

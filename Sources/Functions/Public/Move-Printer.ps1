@@ -67,9 +67,11 @@ Function Move-Printer {
             "ByPrinterName" {
                 Write-Verbose "[$(get-date -format "yyyy/MM/dd HH:mm:ss")] Creating array with Printer Object"
                 foreach ($Name in $PrinterName) {
+                    Write-Verbose "[$(get-date -format "yyyy/MM/dd HH:mm:ss")] Printer processing $($Name)"
                     $PrinterInfo = Get-Printer -Name $Name -ComputerName $FromComputerName
-                    $NewPrinter = [PRINTER]::New($Name)
 
+                    Write-Verbose "[$(get-date -format "yyyy/MM/dd HH:mm:ss")] Creating the PRINTER object $($Name)"
+                    $NewPrinter = [PRINTER]::New($Name)
                     switch -Wildcard ($PrinterInfo.DriverName) {
                         "HP*" {
                             $NewPrinter.SetDriverName("HP Universal Printing PCL 6 (v6.9.0)")
@@ -96,6 +98,7 @@ Function Move-Printer {
                     $NewPrinter.SetSharedStatus($PrinterInfo.Shared)
                     $NewPrinter.SetLocation($PrinterInfo.Location)
 
+                    Write-Verbose "[$(get-date -format "yyyy/MM/dd HH:mm:ss")] Adding the object $($Name) to the list of printers to be processed"
                     $Array = @($NewPrinter)
                     $PrinterList += $Array
                 }
@@ -117,3 +120,7 @@ Function Move-Printer {
     }
 }	 #End Function Move-Printer
 #endregion <Move-Printer>
+
+$PrinterList = @()
+$PrinterList = (Get-printer -ComputerName SRV-PRINT01 | select-object Name | Where-Object { $_.Name -notmatch "^Cop.*|^COP.*|^FAX.*|^Fax.*|.*_uf$|^Fly.*" }).Name
+Move-Printer -PrinterName $PrinterList  -FromComputerName "SRV-PRINT01" -ToComputerName "SRV-PRINT02" -Verbose

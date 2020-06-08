@@ -171,7 +171,33 @@
             Write-Warning "Port Name $($This.PortName) already exist on $($ToComputerName)"
         }
     }
-    #endregion <Method>
+
+    [void] Remove ([system.String]$FromComputerName) {
+        $This.RemovePrinter($FromComputerName)
+        $This.RemovePrinterPort($FromComputerName)
+    }
 
 
+    [void] RemovePrinter ([system.String]$FromComputerName) {
+        if (([PRINTER]::TestIfPrinterExist($This.Name, $FromComputerName))) {
+            Remove-Printer -Name $this.Name -ComputerName $FromComputerName -Confirm:$false
+            Write-Warning "Printer $($This.Name) remove from $($FromComputerName)"
+        }
+        else {
+            Write-Warning "Printer $($This.Name) doesn't exist on $($FromComputerName)"
+        }
+    }
+
+
+    [void] RemovePrinterPort([system.String]$FromComputerName) {
+        if (([PRINTER]::TestIfPrinterPortExist($This.PortName, $FromComputerName))) {
+            Remove-PrinterPort -Name $This.PortName -ComputerName $FromComputerName -Confirm:$false
+            Write-Warning "Port Name $($This.PortName) remove from $($FromComputerName)"
+        }
+        else {
+            Write-Warning "Port Name $($This.PortName) doesn't exist on $($FromComputerName)"
+        }
+    }
 }
+#endregion <Method>
+
