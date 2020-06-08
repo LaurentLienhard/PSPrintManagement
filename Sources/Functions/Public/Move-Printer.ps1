@@ -12,7 +12,7 @@
     .PARAMETER FromComputerName
     Source print server name
 
-        .PARAMETER ToComputerName
+    .PARAMETER ToComputerName
     Destination print server name
 
     .EXAMPLE
@@ -120,7 +120,3 @@ Function Move-Printer {
     }
 }	 #End Function Move-Printer
 #endregion <Move-Printer>
-
-$PrinterList = @()
-$PrinterList = (Get-printer -ComputerName SRV-PRINT01 | select-object Name | Where-Object { $_.Name -notmatch "^Cop.*|^COP.*|^FAX.*|^Fax.*|.*_uf$|^Fly.*" }).Name
-Move-Printer -PrinterName $PrinterList  -FromComputerName "SRV-PRINT01" -ToComputerName "SRV-PRINT02" -Verbose

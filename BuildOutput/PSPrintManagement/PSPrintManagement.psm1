@@ -1,4 +1,4 @@
-﻿#Generated at 06/08/2020 13:56:53 by LIENHARD Laurent
+﻿#Generated at 06/08/2020 17:54:17 by LIENHARD Laurent
 Class Printer {
     [System.String]$Name
     [System.String]$SharedName
@@ -216,7 +216,7 @@ Class Printer {
     .PARAMETER FromComputerName
     Source print server name
 
-        .PARAMETER ToComputerName
+    .PARAMETER ToComputerName
     Destination print server name
 
     .EXAMPLE
@@ -271,9 +271,11 @@ Function Move-Printer {
             "ByPrinterName" {
                 Write-Verbose "[$(get-date -format "yyyy/MM/dd HH:mm:ss")] Creating array with Printer Object"
                 foreach ($Name in $PrinterName) {
+                    Write-Verbose "[$(get-date -format "yyyy/MM/dd HH:mm:ss")] Printer processing $($Name)"
                     $PrinterInfo = Get-Printer -Name $Name -ComputerName $FromComputerName
-                    $NewPrinter = [PRINTER]::New($Name)
 
+                    Write-Verbose "[$(get-date -format "yyyy/MM/dd HH:mm:ss")] Creating the PRINTER object $($Name)"
+                    $NewPrinter = [PRINTER]::New($Name)
                     switch -Wildcard ($PrinterInfo.DriverName) {
                         "HP*" {
                             $NewPrinter.SetDriverName("HP Universal Printing PCL 6 (v6.9.0)")
@@ -300,6 +302,7 @@ Function Move-Printer {
                     $NewPrinter.SetSharedStatus($PrinterInfo.Shared)
                     $NewPrinter.SetLocation($PrinterInfo.Location)
 
+                    Write-Verbose "[$(get-date -format "yyyy/MM/dd HH:mm:ss")] Adding the object $($Name) to the list of printers to be processed"
                     $Array = @($NewPrinter)
                     $PrinterList += $Array
                 }
