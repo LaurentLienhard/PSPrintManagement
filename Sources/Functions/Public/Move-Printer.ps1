@@ -67,6 +67,7 @@ Function Move-Printer {
             "ByPrinterName" {
                 Write-Verbose "[$(get-date -format "yyyy/MM/dd HH:mm:ss")] Creating array with Printer Object"
                 foreach ($Name in $PrinterName) {
+                    $ResultError = $false
                     Write-Verbose "[$(get-date -format "yyyy/MM/dd HH:mm:ss")] Printer processing $($Name)"
                     $PrinterInfo = Get-Printer -Name $Name -ComputerName $FromComputerName
 
@@ -76,22 +77,28 @@ Function Move-Printer {
                         "HP*" {
                             $NewPrinter.SetDriverName("HP Universal Printing PCL 6 (v6.9.0)")
                             $NewPrinter.SetPrintProcessor("hpcpp240")
+                            $NewPrinter.SetDataType("RAW")
                         }
                         "BROTHER*" {
                             $NewPrinter.SetDriverName("Brother Mono Universal Printer (PCL)")
                             $NewPrinter.SetPrintProcessor("WinPrint")
+                            $NewPrinter.SetDataType($PrinterInfo.Datatype)
                         }
                         "Canon LBP*" {
                             $NewPrinter.SetDriverName("Canon Generic Plus PCL6")
                             $NewPrinter.SetPrintProcessor("WinPrint")
-
+                            $NewPrinter.SetDataType($PrinterInfo.Datatype)
                         }
                         Default {
-                            $NewPrinter.SetDriverName($PrinterInfo.DriverName)
-                            $NewPrinter.SetPrintProcessor($PrinterInfo.PrintProcessor)
+                            $result.Error.Add("PrinterName", $NewPrinter.Name)
+                            $ResultError = $true
+                            #$NewPrinter.SetDriverName($PrinterInfo.DriverName)
+                            #$NewPrinter.SetPrintProcessor($PrinterInfo.PrintProcessor)
                         }
                     }
-                    $NewPrinter.SetDataType($PrinterInfo.Datatype)
+                    if ($ResultError) {
+                        Continue
+                    }
                     $NewPrinter.SetSharedName($PrinterInfo.ShareName)
                     $NewPrinter.SetPortName($PrinterInfo.PortName)
                     $NewPrinter.SetPublishedStatus($false)
